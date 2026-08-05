@@ -1,48 +1,48 @@
-class ArticlesController < ApplicationController
+	class ArticlesController < ApplicationController
 
-  def new
-    @article = Article.new
-  end
+	  def new
+		@article = Article.new
+	  end
 
-  def show
-    @article = Article.find(params[:id])
-  end
+	  def show
+		@article = Article.find(params[:id])
+	  end
 
-  def create
-    @article = Article.new(
-      title: params[:article][:title],
-      body: params[:article][:body]
-    )
+	  def create
+		@article = Article.new(
+		  title: params[:article][:title],
+		  body: params[:article][:body]
+		)
 
-    if @article.save
-      redirect_to root_path
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
+		if @article.save
+redirect_to root_path, notice: "Article successfully created."
+		else
+		  render :new, status: :unprocessable_entity
+		end
+	  end
 
-  def edit
-    @article = Article.find(params[:id])
-  end
-  
-  def destroy
-  @article = Article.find(params[:id])
-  @article.destroy
+	  def edit
+		@article = Article.find(params[:id])
+	  end
+	  
+	  def destroy
+	  @article = Article.find(params[:id])
+	  @article.destroy
 
-  redirect_to root_path, notice: "Article successfully deleted."
-end
+	  redirect_to root_path, notice: "Article successfully deleted."
+	end
 
-  def update
-    @article = Article.find(params[:id])
+	  def update
+		@article = Article.find(params[:id])
 
-    if @article.update(
-      title: params[:article][:title],
-      body: params[:article][:body]
-    )
-      redirect_to "/articles/#{@article.id}"
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
+		if @article.update(
+		  title: params[:article][:title],
+		  body: params[:article][:body]
+		)
+redirect_to @article, notice: "Article successfully updated."
+		else
+		  render :edit, status: :unprocessable_entity
+		end
+	  end
 
-end
+	end
