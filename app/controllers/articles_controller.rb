@@ -1,18 +1,17 @@
 	class ArticlesController < ApplicationController
+	
+	before_action :set_article, only: [:show, :edit, :update, :destroy]
 
 	  def new
 		@article = Article.new
 	  end
 
 	  def show
-		@article = Article.find(params[:id])
+		
 	  end
 
 	  def create
-		@article = Article.new(
-		  title: params[:article][:title],
-		  body: params[:article][:body]
-		)
+		@article = Article.new(article_params)
 
 		if @article.save
 redirect_to root_path, notice: "Article successfully created."
@@ -22,27 +21,31 @@ redirect_to root_path, notice: "Article successfully created."
 	  end
 
 	  def edit
-		@article = Article.find(params[:id])
+		
 	  end
 	  
 	  def destroy
-	  @article = Article.find(params[:id])
+	  
 	  @article.destroy
 
 	  redirect_to root_path, notice: "Article successfully deleted."
 	end
 
 	  def update
-		@article = Article.find(params[:id])
+		
 
-		if @article.update(
-		  title: params[:article][:title],
-		  body: params[:article][:body]
-		)
+		if @article = Article.update(article_params)
 redirect_to @article, notice: "Article successfully updated."
 		else
 		  render :edit, status: :unprocessable_entity
 		end
 	  end
+private
 
+def set_article
+  @article = Article.find(params[:id])
+end
+def article_params
+  params.require(:article).permit(:title, :body)
+end
 	end
