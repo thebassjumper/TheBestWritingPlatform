@@ -1,6 +1,9 @@
 <%= link_to "New Article", "/articles/new" %>
 
-
+<%= form_with url: root_path, method: :get do |form| %>
+  <%= form.text_field :search %>
+  <%= form.submit "Search" %>
+<% end %>
 
 <h1><%=@message%></h1>
 <p>Let's write and make history, something we wanted when we started. Welcome again!</p>
